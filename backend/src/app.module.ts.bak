@@ -1,0 +1,30 @@
+import { Module } from "@nestjs/common";
+import { ConfigModule } from "@nestjs/config";
+import { TypeOrmModule } from "@nestjs/typeorm";
+import { AuthModule } from "./auth/auth.module";
+import { SorteoModule } from "./sorteo/sorteo.module";
+import { BoletosModule } from "./boletos/boletos.module";
+import { UsersModule } from "./users/users.module";
+import { AfiliadoModule } from "./afiliados/afiliado.module";
+
+@Module({
+  imports: [
+    ConfigModule.forRoot({ isGlobal: true }),
+    TypeOrmModule.forRoot({
+      type: "postgres",
+      host: process.env.DB_HOST,
+      port: Number(process.env.DB_PORT),
+      username: process.env.DB_USER,
+      password: process.env.DB_PASSWORD,
+      database: process.env.DB_NAME,
+      autoLoadEntities: true,
+      synchronize: false, // ⚠️ En producción deberíamos usar migrations y poner esto en false
+    }),
+    AuthModule,
+    SorteoModule,
+    BoletosModule,
+    UsersModule,
+    AfiliadoModule,
+  ],
+})
+export class AppModule {}

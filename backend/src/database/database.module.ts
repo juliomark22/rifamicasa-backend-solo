@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { User } from '../users/domain/user.entity';
-import { Boleto } from '../boletos/domain/boleto.entity';
+import { User } from '../users/user.entity';
+import { Boleto } from '../boletos/boleto.entity';
 
 @Module({
   imports: [

@@ -1,5 +1,5 @@
 import { Controller, Get, UseGuards, Request } from '@nestjs/common';
-import { JwtAuthGuard } from './auth/infrastructure/jwt-auth.guard';
+import { JwtAuthGuard } from './auth/jwt.guard';
 
 @Controller('admin')
 export class AdminController {

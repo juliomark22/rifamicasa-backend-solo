@@ -1,5 +1,5 @@
 import { Controller, Post, UseGuards, Body } from '@nestjs/common';
-import { JwtAuthGuard } from '../../auth/infrastructure/jwt-auth.guard';
+import { JwtAuthGuard } from '../../auth/jwt.guard';
 
 @Controller('sorteo')
 @UseGuards(JwtAuthGuard)

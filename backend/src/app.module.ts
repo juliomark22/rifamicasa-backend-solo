@@ -1,32 +1,34 @@
-import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { User } from './users/domain/user.entity';
-import { Boleto } from './boletos/domain/boleto.entity';
-import { AuthModule } from './auth/auth.module';
-import { UsersModule } from './users/users.module';
-import { BoletoModule } from './boletos/boleto.module';
-import { AfiliadoModule } from './afiliados/afiliado.module';
-import { SorteoModule } from './sorteo/sorteo.module';
-import { HealthController } from './health.controller';
-import { AdminController } from './admin.controller';
+import { Module } from "@nestjs/common";
+import { TypeOrmModule } from "@nestjs/typeorm";
+import { User } from "./users/user.entity";
+import { Afiliado } from "./afiliados/afiliado.entity";
+import { Boleto } from "./boletos/boleto.entity";
+import { Distribuidor } from "./distribuidores/distribuidor.entity";
+import { Referral } from "./referrals/referral.entity";
+
+import { UsersModule } from "./users/users.module";
+import { BoletosModule } from "./boletos/boletos.module";
+import { DistribuidoresModule } from "./distribuidores/distribuidores.module";
+import { ReferralsModule } from "./referrals/referrals.module";
+import { AdminModule } from "./admin/admin.module";
 
 @Module({
   imports: [
-    ConfigModule.forRoot({ isGlobal: true }),
     TypeOrmModule.forRoot({
-      type: 'postgres',
-      url: process.env.DATABASE_URL,
-      entities: [User, Boleto],
+      type: "postgres",
+      host: process.env.DB_HOST || "127.0.0.1",
+      port: parseInt(process.env.DB_PORT || "5432"),
+      username: process.env.DB_USER || "rifas_user",
+      password: process.env.DB_PASSWORD || "",
+      database: process.env.DB_NAME || "rifasdb",
+      entities: [User, Afiliado, Boleto, Distribuidor, Referral],
       synchronize: false,
-      logging: false,
     }),
-    AuthModule,
     UsersModule,
-    BoletoModule,
-    AfiliadoModule,
-    SorteoModule,
+    BoletosModule,
+    DistribuidoresModule,
+    ReferralsModule,
+    AdminModule,
   ],
-  controllers: [HealthController, AdminController],
 })
 export class AppModule {}
